@@ -8,7 +8,7 @@ import java.util.Properties;
 import java.util.Scanner;
 
 /**
- * @author: Chen weiguang <weiguangchen@sf-express.com>
+ * @author: Chen weiguang <chen2621978@gmail.com>
  * @create: 2019/02/18 19:42
  **/
 public class ProducerDemo {

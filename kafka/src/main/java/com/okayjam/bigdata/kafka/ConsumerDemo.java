@@ -1,17 +1,22 @@
 package com.okayjam.bigdata.kafka;
 
 /**
- * @author: Chen weiguang <weiguangchen@sf-express.com>
+ * @author: Chen weiguang <chen2621978@gmail.com>
  * @create: 2019/02/18 18:31
  **/
 import java.util.Arrays;
 import java.util.Properties;
 
+
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 public class ConsumerDemo {
+    private static final Logger logger =  LoggerFactory.getLogger(ConsumerDemo.class);
 
     public static void main(String[] args) throws InterruptedException {
 

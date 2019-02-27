@@ -10,12 +10,14 @@
 
   <name>kafka</name>
   <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <url>http://www.okayjam.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <slf4j.version>1.7.25</slf4j.version>
+    <kafka.version>2.1.1</kafka.version>
   </properties>
 
   <dependencies>
@@ -25,24 +27,30 @@
     <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka-clients</artifactId>
-      <version>2.1.1</version>
+      <version>${kafka.version}</version>
     </dependency>
-
 
     <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->
     <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka_2.12</artifactId>
-      <version>2.1.1</version>
+      <version>${kafka.version}</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.apache.kafka/connect-api -->
     <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>connect-api</artifactId>
-      <version>2.1.1</version>
+      <version>${kafka.version}</version>
     </dependency>
 
+
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
 
 
     <dependency>
