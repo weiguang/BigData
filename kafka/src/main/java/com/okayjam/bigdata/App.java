@@ -9,21 +9,21 @@ import org.slf4j.LoggerFactory;
  */
 public class App 
 {
-    private static final Logger logger =  LoggerFactory.getLogger(App.class);
+    private static final Logger LOG =  LoggerFactory.getLogger(App.class);
     public static void main( String[] args )
     {
-
-        logger.info("Current Time: {}", System.currentTimeMillis());
-        logger.info("Current Time: " + System.currentTimeMillis());
-        logger.info("Current Time: {}", System.currentTimeMillis());
-        logger.trace("trace log");
-        logger.warn("warn log");
-        logger.debug("debug log");
-        logger.info("info log");
+        System.out.println("sout");
+        LOG.info("Current Time: {}", System.currentTimeMillis());
+        LOG.info("Curren Time: " + System.currentTimeMillis());
+        LOG.info("Current Time: {}", System.currentTimeMillis());
+        LOG.trace("trace log");
+        LOG.warn("warn log");
+        LOG.debug("debug log");
+        LOG.info("info log");
         try{
             int a = 1/0;
         }catch (Exception e) {
-            logger.error("error log", e);
+            LOG.error("error log", e);
         }
 
     }
