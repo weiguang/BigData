@@ -1,7 +1,7 @@
-package com.sf.ops.etl.calculate.redis;
+package com.okayjam.bigdata.redis;
 
 
-import com.sf.ops.etl.util.PropertiesUtil;
+import com.okayjam.bigdata.util.PropertiesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.HostAndPort;
@@ -13,7 +13,6 @@ import java.util.Set;
 
 /**
  * @Description：redis连接池
- * @Author 01381119
  * @CreateDate: 2019/1/9 19:49
  */
 public class RedisSentinelCluster {
@@ -22,24 +21,24 @@ public class RedisSentinelCluster {
 
     private static JedisSentinelPool pool;
 
-    private RedisSentinelCluster() {
+    private RedisSentinelCluster() {}
 
-    }
-
-    static {
-        init();
-    }
+    static { init(); }
 
     public static JedisSentinelPool bulider() {
+        if(pool == null) {init();}
         return pool;
     }
 
     private static void init() {
 
         JedisPoolConfig poolConfig = new JedisPoolConfig();
-        poolConfig.setMaxTotal(Integer.parseInt(PropertiesUtil.getValue("redis.maxTotal")));// 最大连接数
-        poolConfig.setMaxIdle(Integer.parseInt(PropertiesUtil.getValue("redis.maxIdle")));// 最大空闲数
-        poolConfig.setMaxWaitMillis(Integer.parseInt(PropertiesUtil.getValue("redis.maxWait")));// 最大允许等待时间，如果超过这个时间还未获取到连接，则会报JedisException异常：Could not get a resource from the pool
+        // 最大连接数
+        poolConfig.setMaxTotal(Integer.parseInt(PropertiesUtil.getValue("redis.maxTotal")));
+        // 最大空闲数
+        poolConfig.setMaxIdle(Integer.parseInt(PropertiesUtil.getValue("redis.maxIdle")));
+        // 最大允许等待时间，如果超过这个时间还未获取到连接，则会报JedisException异常：Could not get a resource from the pool
+        poolConfig.setMaxWaitMillis(Integer.parseInt(PropertiesUtil.getValue("redis.maxWait")));
 
         String[] hostAndPortArray = PropertiesUtil.getValue("redis.cluster").split(",");
         Set<String> sentinels = new HashSet<>();
@@ -48,14 +47,13 @@ public class RedisSentinelCluster {
             int port = Integer.parseInt(hostAndPortArray[i].split(":")[1]);
             sentinels.add(new HostAndPort(host, port).toString());
         }
-
         String password = PropertiesUtil.getValue("redis.auth");
         String masterName = PropertiesUtil.getValue("redis.master.name");
         pool = new JedisSentinelPool(masterName, sentinels, poolConfig, password);
-        System.out.println("the redis cluster pool init success: " + PropertiesUtil.getValue("redis.cluster"));
+        logger.info("the redis cluster pool init success: " + PropertiesUtil.getValue("redis.cluster"));
     }
 
-    public void close() {
+    public static  void close() {
         if (pool != null) {
             try {
                 pool.close();

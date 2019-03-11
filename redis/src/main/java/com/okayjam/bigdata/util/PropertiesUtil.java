@@ -1,11 +1,11 @@
-package com.sf.ops.etl.util;
+package com.okayjam.bigdata.util;
 
 import java.util.Properties;
 
 public class PropertiesUtil {
 
 	private static Properties prop = null;     
-	private static String properPath = "config/pro/system.properties";
+	private static String properPath = "config/test/system.properties";
 	
 	//静态块中的内容会在类别加载的时候先被执行    
 	static {
