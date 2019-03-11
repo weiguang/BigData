@@ -20,6 +20,9 @@ public class App
         LOG.warn("warn log");
         LOG.debug("debug log");
         LOG.info("info log");
+
+        LOG.trace("trace log !!!!!!!!!!!");
+
         try{
             int a = 1/0;
         }catch (Exception e) {
