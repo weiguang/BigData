@@ -1,6 +1,6 @@
 package com.okayjam.bigdata;
 
-import com.okayjam.bigdata.elasticsearch.TransportClientFactory;
+import com.okayjam.bigdata.elasticsearch.factory.TransportClientFactory;
 import org.elasticsearch.client.transport.TransportClient;
 import org.junit.Test;
 
