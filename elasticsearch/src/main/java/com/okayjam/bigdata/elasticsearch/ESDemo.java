@@ -30,7 +30,7 @@ import java.util.Map;
 public class ESDemo {
     String esIndexName = "ops_container_waybill_info_rel_index";
     public static void main(String[] args) {
-        new ESDemo().testTransportClient();
+//        new ESDemo().testTransportClient();
         new ESDemo().testRestHighClient();
 //        new ESDemo().testIndex() ;
 //        new ESDemo().testHits() ;
@@ -133,14 +133,15 @@ public class ESDemo {
 //        System.out.println(ex);
 
         String addIndex = "test_index_jam";
-        ex = ts.isIndexExist(addIndex);
+        ts.addIndex(esIndexName);
+        ex = ts.isIndexExist(esIndexName);
         System.out.println(ex);
 
 
 //        ts.addIndex(addIndex);
-        ts.deleteIndex(addIndex);
-        ex = ts.isIndexExist(addIndex);
-        System.out.println(ex);
+//        ts.deleteIndex(esIndexName);
+//        ex = ts.isIndexExist(addIndex);
+//        System.out.println(ex);
     }
 
     public void testHits() {
