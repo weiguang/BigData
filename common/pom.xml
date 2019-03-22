@@ -7,13 +7,13 @@
 
     <groupId>com.okayjam.bigdata</groupId>
     <artifactId>common</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <modules>
+<!--    <modules>
         <module>../elasticsearch</module>
         <module>../kafka</module>
         <module>../redis</module>
-    </modules>
+    </modules>-->
 
     <name>common</name>
 
