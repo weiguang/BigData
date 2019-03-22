@@ -26,6 +26,11 @@
 
   <dependencies>
 
+    <dependency>
+      <groupId>com.okayjam.bigdata</groupId>
+      <artifactId>common</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
     <dependency>

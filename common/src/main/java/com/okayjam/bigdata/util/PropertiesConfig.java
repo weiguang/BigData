@@ -14,7 +14,7 @@ public class PropertiesConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(PropertiesConfig.class);
 
-    private static final String ES_CONFIG_PATH = "system.properties";
+    private static final String ES_CONFIG_PATH = "config/test/system.properties";
 
     private static Properties prop = null;
 
