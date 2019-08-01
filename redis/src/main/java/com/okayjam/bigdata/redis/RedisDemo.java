@@ -28,7 +28,8 @@ public class RedisDemo {
     public static void main(String[] args) {
 
 //        testRedis();
-        testCluster1();
+        testRedisPool();
+//        testCluster1();
 //        testSentinel();
 //        testSentinel1();
 //        RedisSentinelCluster.close();
@@ -39,7 +40,25 @@ public class RedisDemo {
         int port = 6379;
         //连接 Redis 服务
         Jedis jedis = new Jedis(host, port);
+//        jedis.auth(password);
         System.out.println("连接成功");
+        //设置 redis 字符串数据
+        jedis.set("okayjam", "www.okayjam.com");
+        // 获取存储的数据并输出
+        System.out.println("redis 存储的字符串为: "+ jedis.get("okayjam"));
+        jedis.close();
+    }
+
+    public static void  testRedisPool() {
+        String host = "192.168.242.128";
+        int port = 6379;
+        JedisPoolConfig config = new JedisPoolConfig();
+        config.setMaxIdle(8);
+        config.setMaxTotal(18);
+        //连接 Redis 服务
+        JedisPool pool = new JedisPool(config, host, port, 2000);
+//        JedisPool pool = new JedisPool(config, host, port, 2000,"password");
+        Jedis jedis = pool.getResource();
         //设置 redis 字符串数据
         jedis.set("okayjam", "www.okayjam.com");
         // 获取存储的数据并输出
@@ -69,19 +88,22 @@ public class RedisDemo {
 
 
     public static void testSentinel() {
+        String masterName = "mymaster";
+        String password = "";
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxTotal(10);
         jedisPoolConfig.setMaxIdle(5);
         jedisPoolConfig.setMinIdle(5);
         // 哨兵信息
-        Set<String> sentinels = new HashSet<>(Arrays.asList("eos-ops-core-new1.cachesit.sfdc.com.cn:8001","eos-ops-core-new2.cachesit.sfdc.com.cn:8001", "eos-ops-core-new3.cachesit.sfdc.com.cn:8001"));
+        Set<String> sentinels = new HashSet<>(Arrays.asList("192.168.242.128:28021","192.168.242.128:28022","192.168.242.128:28023"));
         // 创建连接池
-        JedisSentinelPool pool = new JedisSentinelPool("EOS_OPS_CORE_REDIS_NEW_C01", sentinels,jedisPoolConfig,"g1wrmlxcgglq4hhw");
+        JedisSentinelPool pool = new JedisSentinelPool(masterName, sentinels,jedisPoolConfig);
+//        JedisSentinelPool pool = new JedisSentinelPool(masterName, sentinels,jedisPoolConfig, password);
         // 获取客户端
         Jedis jedis = pool.getResource();
         // 执行两个命令
-        jedis.set("mykey", "myvalue");
-        String value = jedis.get("mykey");
+        jedis.set("okayjam", "www.okayjam.com");
+        String value = jedis.get("okayjam");
         System.out.println(value);
     }
 
