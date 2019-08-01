@@ -9,7 +9,7 @@ import java.util.*;
  * @create: 2019/03/04 17:17
  **/
 public class RedisDemo {
-    private static ShardedJedisPool pool;
+/*    private static ShardedJedisPool pool;
     static {
         JedisPoolConfig config = new JedisPoolConfig();
         config.setMaxTotal(100);
@@ -18,36 +18,54 @@ public class RedisDemo {
         config.setTestOnBorrow(true);
         config.setTestOnReturn(true);
         // 集群
-        JedisShardInfo jedisShardInfo1 = new JedisShardInfo("192.168.20.129", 6379);
+        JedisShardInfo jedisShardInfo1 = new JedisShardInfo("eos-ops-core-new1.cachesit.sfdc.com.cn", 8001);
 //        jedisShardInfo1.setPassword("123456888888");
         List<JedisShardInfo> list = new LinkedList<JedisShardInfo>();
         list.add(jedisShardInfo1);
         pool = new ShardedJedisPool(config, list);
-    }
+    }*/
 
     public static void main(String[] args) {
 
 //        testRedis();
+        testCluster1();
 //        testSentinel();
-        testSentinel1();
+//        testSentinel1();
 //        RedisSentinelCluster.close();
     }
 
     public static void  testRedis() {
+        String host = "192.168.242.128";
+        int port = 6379;
         //连接 Redis 服务
-        Jedis jedis = new Jedis("192.168.20.122");
-//        ShardedJedis jedis = pool.getResource();
+        Jedis jedis = new Jedis(host, port);
         System.out.println("连接成功");
-
-        // 获取数据并输出
-        Set<String> keys = jedis.keys("*");
-        Iterator<String> it=keys.iterator() ;
-        while(it.hasNext()){
-            String key = it.next();
-            System.out.println(key + " : " + jedis.get(key));
-        }
+        //设置 redis 字符串数据
+        jedis.set("okayjam", "www.okayjam.com");
+        // 获取存储的数据并输出
+        System.out.println("redis 存储的字符串为: "+ jedis.get("okayjam"));
         jedis.close();
     }
+
+    public static void testCluster() {
+        Set<HostAndPort> jedisClusterSet = new HashSet<>();
+        JedisPoolConfig config = new JedisPoolConfig();
+        config.setMaxIdle(100);
+        jedisClusterSet.add(new HostAndPort("192.168.242.128", 8201));
+        jedisClusterSet.add(new HostAndPort("192.168.242.128", 8202));
+        jedisClusterSet.add(new HostAndPort("192.168.242.128", 8203));
+        JedisCluster jedisCluster = new JedisCluster(jedisClusterSet, config);
+        jedisCluster.set("okayjam", "www.okayjam.com");
+        System.out.println(jedisCluster.get("okayjam"));
+    }
+
+    public static void testCluster1() {
+        JedisCluster jedisCluster = RedisCluster.bulider();
+        jedisCluster.set("okayjam", "www.okayjam.com");
+        System.out.println(jedisCluster.get("okayjam"));
+    }
+
+
 
 
     public static void testSentinel() {
@@ -56,9 +74,9 @@ public class RedisDemo {
         jedisPoolConfig.setMaxIdle(5);
         jedisPoolConfig.setMinIdle(5);
         // 哨兵信息
-        Set<String> sentinels = new HashSet<>(Arrays.asList("192.168.20.120:26379", "192.168.20.120:26379","192.168.20.120:26379"));
+        Set<String> sentinels = new HashSet<>(Arrays.asList("eos-ops-core-new1.cachesit.sfdc.com.cn:8001","eos-ops-core-new2.cachesit.sfdc.com.cn:8001", "eos-ops-core-new3.cachesit.sfdc.com.cn:8001"));
         // 创建连接池
-        JedisSentinelPool pool = new JedisSentinelPool("mymaster", sentinels,jedisPoolConfig,"123456");
+        JedisSentinelPool pool = new JedisSentinelPool("EOS_OPS_CORE_REDIS_NEW_C01", sentinels,jedisPoolConfig,"g1wrmlxcgglq4hhw");
         // 获取客户端
         Jedis jedis = pool.getResource();
         // 执行两个命令
@@ -70,7 +88,8 @@ public class RedisDemo {
     public static void testSentinel1() {
         Jedis jedis = RedisSentinelCluster.bulider().getResource();
         // 获取数据并输出
-        Set<String> keys = jedis.keys("*");
+        jedis.set("mykey", "yueyang");
+        Set<String> keys = jedis.keys("mykey");
         Iterator<String> it=keys.iterator() ;
         while(it.hasNext()){
             String key = it.next();
