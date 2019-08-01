@@ -41,17 +41,18 @@ public class ESDemo {
         String endtmStart = "2019-03-07 00:00";
         String endtmEnd = "2019-03-09 23:59";
         String removezonecode = "852RA";
+        String[] array = new String[]{"a","b"};
 
-//        params.put("limitTypeCode","T7");
-//        params.put("srcCityCode","579");
-//        params.put("destCityCode","LAX");
-//        params.put("srcDistCode","579Y");
-//        params.put("destAreaCode","USJFKYS");
 
         //查询条件
         BoolQueryBuilder boolQueryBuilder = QueryBuilders
                 .boolQuery()
-                .must(QueryBuilders.termQuery("removezonecode",removezonecode));
+                //字段匹配
+                .must(QueryBuilders.termQuery("removezonecode", removezonecode))
+                //匹配多个值
+                .must(QueryBuilders.termsQuery("removezonecode", array))
+                // 范围
+                .must(new RangeQueryBuilder("endtm").gte(endtmStart).lte(endtmEnd));
         boolQueryBuilder.must(new RangeQueryBuilder("endtm").gte(endtmStart).lte(endtmEnd));
 
         TransportClient client = TransportClientFactory.getInstance().getTransportClient();
@@ -62,7 +63,7 @@ public class ESDemo {
                 .prepareSearch(esIndexName).setSearchType(SearchType.DEFAULT)
                 .setSize(5).setQuery(boolQueryBuilder).execute()
                 .actionGet();
-        System.out.println(searchResponse.getHits().totalHits);
+//        System.out.println(searchResponse.getHits().totalHits);
         for (SearchHit searchHit : searchResponse.getHits()) {
             String jsonStr = searchHit.getSourceAsString();
             System.out.println(jsonStr);
@@ -74,35 +75,43 @@ public class ESDemo {
         String endtmStart = "2019-03-07 00:00";
         String endtmEnd = "2019-03-09 23:59";
         String removezonecode = "852RA";
+        String[] array = new String[]{"a","b"};
 
+        //条件查找
         BoolQueryBuilder boolQueryBuilder = QueryBuilders
                 .boolQuery()
-                .must(QueryBuilders.termQuery("removezonecode",removezonecode));
-        boolQueryBuilder.must(new RangeQueryBuilder("endtm").gte(endtmStart).lte(endtmEnd));
+                //字段匹配
+                .must(QueryBuilders.termQuery("removezonecode", removezonecode))
+                //匹配多个值
+                .must(QueryBuilders.termsQuery("removezonecode", array))
+                // 范围
+                .must(new RangeQueryBuilder("endtm").gte(endtmStart).lte(endtmEnd));
 
-        SearchSourceBuilder ssb = new SearchSourceBuilder();
-        ssb.query(boolQueryBuilder).size(5);
 
-        SearchRequest sr = new SearchRequest();
-        sr.indices(esIndexName);
-        sr.source(ssb);
-
+        //聚合
         AggregationBuilder tb1 = AggregationBuilders.terms("src_dist_code_list").field("src_dist_code").size(10000);
 
         TermsAggregationBuilder tb2 = AggregationBuilders.terms("dest_area_code_list").field("dest_area_code").size(10000);
         TermsAggregationBuilder tb3 = AggregationBuilders.terms("src_city_code_list").field("src_city_code").size(10000);
-        TermsAggregationBuilder tb4 = AggregationBuilders.terms("dest_city_code_list").field("dest_city_code").size(10000);
-        TermsAggregationBuilder tb5 = AggregationBuilders.terms("limit_type_code_list").field("limit_type_code").size(10000);
 
         SumAggregationBuilder tbSum = AggregationBuilders.sum("meterage_weight_qty_sum").field("meterage_weight_qty");
 
-        tb5.subAggregation(tbSum);
-        tb4.subAggregation(tb5);
-        tb3.subAggregation(tb4);
+
+        tb3.subAggregation(tbSum);
         tb2.subAggregation(tb3);
         tb1.subAggregation(tb2);
 
+
+
+
+        SearchSourceBuilder ssb = new SearchSourceBuilder();
+        ssb.query(boolQueryBuilder);
         ssb.aggregation(tb1);
+
+        //查询请求
+        SearchRequest sr = new SearchRequest();
+        sr.indices(esIndexName);
+        sr.source(ssb);
 
 
         System.out.println(sr.source());

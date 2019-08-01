@@ -5,7 +5,6 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 
 /**
@@ -60,8 +59,12 @@ public class TransportClientService {
                 : false;
     }
 
+
     /**
-     * 获取索引的所有数据，返回强size条
+     * 获取索引的所有数据，返回前size条
+     * @param index 索引
+     * @param size 返回多少条明细
+     * @return SearchHits
      */
     public SearchHits matchAllQuery(String index, int size) {
         QueryBuilder query = QueryBuilders.matchAllQuery();
