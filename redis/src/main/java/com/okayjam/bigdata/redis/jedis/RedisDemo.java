@@ -1,4 +1,4 @@
-package com.okayjam.bigdata.redis;
+package com.okayjam.bigdata.redis.jedis;
 
 import redis.clients.jedis.*;
 
@@ -27,8 +27,8 @@ public class RedisDemo {
 
     public static void main(String[] args) {
 
-//        testRedis();
-        testRedisPool();
+        testRedis();
+//        testRedisPool();
 //        testCluster1();
 //        testSentinel();
 //        testSentinel1();
@@ -36,7 +36,7 @@ public class RedisDemo {
     }
 
     public static void  testRedis() {
-        String host = "192.168.242.128";
+        String host = "192.168.98.100";
         int port = 6379;
         //连接 Redis 服务
         Jedis jedis = new Jedis(host, port);
@@ -76,6 +76,7 @@ public class RedisDemo {
         JedisCluster jedisCluster = new JedisCluster(jedisClusterSet, config);
         jedisCluster.set("okayjam", "www.okayjam.com");
         System.out.println(jedisCluster.get("okayjam"));
+
     }
 
     public static void testCluster1() {

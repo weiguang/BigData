@@ -1,4 +1,4 @@
-package com.okayjam.bigdata.redis;
+package com.okayjam.bigdata.redis.jedis;
 
 
 import com.okayjam.bigdata.util.PropertiesConfig;
@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.JedisSentinelPool;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +26,7 @@ public class RedisCluster {
     static { init(); }
 
     public static JedisCluster bulider() {
+
         if(pool == null) {init();}
         return pool;
     }

@@ -1,4 +1,4 @@
-package com.okayjam.bigdata.redis;
+package com.okayjam.bigdata.redis.jedis;
 
 
 import org.slf4j.Logger;
