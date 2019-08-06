@@ -17,9 +17,10 @@ public class Redission {
         // 默认连接地址 127.0.0.1:6379
 //        RedissonClient redisson = Redisson.create();
 
-        Config config = new Config();
-        config.useSingleServer().setAddress("redis://192.168.98.100:6379");
-        RedissonClient redisson = Redisson.create(config);
+//        Config config = new Config();
+//        config.useSingleServer().setAddress("redis://192.168.98.100:6379");
+//        RedissonClient redisson = Redisson.create(config);
+        RedissonClient redisson = RedissionCluster.bulider();
       //  redisson.getBucket("okayjam").set("nihao");
         RBucket but = redisson.getBucket("okayjam");
 
