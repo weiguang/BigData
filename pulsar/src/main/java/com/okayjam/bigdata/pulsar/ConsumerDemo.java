@@ -1,4 +1,4 @@
-package com.okayjam.pulsar;
+package com.okayjam.bigdata.pulsar;
 
 /**
  * @author: Chen weiguang <chen2621978@gmail.com>
@@ -6,10 +6,7 @@ package com.okayjam.pulsar;
  **/
 
 
-import org.apache.pulsar.client.api.Consumer;
-import org.apache.pulsar.client.api.Message;
-import org.apache.pulsar.client.api.PulsarClient;
-import org.apache.pulsar.client.api.PulsarClientException;
+import org.apache.pulsar.client.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
