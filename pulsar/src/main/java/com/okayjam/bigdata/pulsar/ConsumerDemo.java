@@ -17,7 +17,7 @@ public class ConsumerDemo {
 
     public static void main(String[] args) throws  PulsarClientException {
         PulsarClient client = PulsarClient.builder()
-                .serviceUrl("pulsar://xxx:6650")
+                .serviceUrl("pulsar://9.135.90.195:6650")
                 .build();
 
         Consumer consumer = client.newConsumer()
@@ -30,7 +30,7 @@ public class ConsumerDemo {
             Message msg = consumer.receive();
             try {
                 // Do something with the message
-                System.out.printf("Message received: %s, key:%s ", new String(msg.getData()), msg.getKey());
+                System.out.printf("Message received: %s, key:%s \n", new String(msg.getData()), msg.getKey());
                 // Acknowledge the message so that it can be deleted by the message broker
                 consumer.acknowledge(msg);
             } catch (Exception e) {
