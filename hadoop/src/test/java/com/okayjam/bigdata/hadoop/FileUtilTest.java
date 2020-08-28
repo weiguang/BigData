@@ -1,13 +1,11 @@
 package com.okayjam.bigdata.hadoop;
 
 import junit.framework.TestCase;
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileSystem;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.net.URI;
 
 /**
  * @author Chen weiguang chen2621978@gmail.com
@@ -26,9 +24,21 @@ public class FileUtilTest extends TestCase {
      *  初始
      * @throws Exception
      */
+    @Before
     public void setUp() throws Exception {
         System.out.println("start");
-         FileSystem.get(URI.create(HDFS_PATH), new Configuration());
+        fileUtil = new FileUtil(HDFS_PATH);
+    }
+
+    @After
+    public void after() throws Exception {
+        System.out.println("end");
+        fileUtil.close();
+    }
+
+    @Test
+    public void  testCreateFile () throws IOException {
+        fileUtil.createFile("/javaTest/ttt", "123");
     }
 
     @Test

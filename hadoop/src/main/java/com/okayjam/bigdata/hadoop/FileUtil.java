@@ -19,6 +19,14 @@ public class FileUtil {
 
     public  String HDFS_PATH  = null;
 
+    public void close() {
+        try {
+            fs.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public FileUtil(String hdfs_path) {
         HDFS_PATH = hdfs_path;
         configuration = getConfiguration();
@@ -59,11 +67,13 @@ public class FileUtil {
      * @throws IOException
      */
     public void createFile(String file, String content) throws IOException {
-        byte[] buff = content.getBytes();
         FSDataOutputStream os = null;
         try {
             os = fs.create(new Path(file));
-            os.write(buff, 0, buff.length);
+            if (content != null) {
+                byte[] buff = content.getBytes();
+                os.write(buff, 0, buff.length);
+            }
             System.out.println("Create: " + file);
         } finally {
             if (os != null)
@@ -133,7 +143,7 @@ public class FileUtil {
      * @param remote
      * @throws IOException
      */
-    public void copyFile(String local, String remote) throws IOException {
+    public void upload(String local, String remote) throws IOException {
         fs.copyFromLocalFile(new Path(local), new Path(remote));
         System.out.println("copy from: " + local + " to " + remote);
 //        fs.close();
