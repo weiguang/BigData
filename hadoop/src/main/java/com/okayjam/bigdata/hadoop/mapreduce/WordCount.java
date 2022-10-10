@@ -19,7 +19,7 @@ public class WordCount {
         Configuration conf = new Configuration();
 
         // 本地运行
-       // conf.set("mapreduce.framework.name", "local");
+        conf.set("mapreduce.framework.name", "local");
 
         //在hadoop集群机器上运行会读取相应的配置文件 $Hadoop_Home
         Job job = Job.getInstance(conf);
@@ -41,9 +41,10 @@ public class WordCount {
         //文件路径设置
 /*        FileInputFormat.setInputPaths(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));*/
+        System.out.println(new Path("./hadoop/input").getParent());
         // 本地运行输入、输出路径
-        FileInputFormat.setInputPaths(job, new Path("/Users/jam/IdeaProjects/BigData/hadoop/test/input"));
-        FileOutputFormat.setOutputPath(job, new Path("/Users/jam/IdeaProjects/BigData/hadoop/test/output"));
+        FileInputFormat.setInputPaths(job, new Path("./hadoop/input"));
+        FileOutputFormat.setOutputPath(job, new Path("./hadoop/output"));
 
         // reduce 个数， 分区个数
         job.setNumReduceTasks(5);

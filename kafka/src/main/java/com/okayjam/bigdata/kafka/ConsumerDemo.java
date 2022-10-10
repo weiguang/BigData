@@ -21,12 +21,12 @@ public class ConsumerDemo {
 
     public static void main(String[] args) throws InterruptedException {
 
-        String topicName = "test";
-        String groupId = "test-consumer-group";
+        String topicName = "mykafka";
+        String groupId = "test-consumer-group1";
 
         Properties props = new Properties();
         //必须指定
-        props.put("bootstrap.servers", "192.168.20.120:9092");
+        props.put("bootstrap.servers", "9.135.90.195:9092");
         props.put("group.id", groupId);
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
