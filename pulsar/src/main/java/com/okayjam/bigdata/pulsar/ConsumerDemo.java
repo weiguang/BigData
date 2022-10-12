@@ -19,20 +19,40 @@ public class ConsumerDemo {
         PulsarClient client = PulsarClient.builder()
                 .serviceUrl("pulsar://9.135.90.195:6650")
                 .build();
+//        consumerByListener(client);
+        consumer(client);
+    }
 
+
+    public static void consumerByListener(PulsarClient client ) throws PulsarClientException {
+        client.newConsumer()
+                .topic("my-topic")
+                .subscriptionName("my-subscriptionByListener")
+                .messageListener( (consumer, msg) -> {
+                    try {
+                        System.out.println("Message received: " + new String(msg.getData()));
+                        consumer.acknowledge(msg);
+                    } catch (Exception e) {
+                        consumer.negativeAcknowledge(msg);
+                    }
+                })
+                .subscribe();
+    }
+
+    public static void consumer(PulsarClient client ) throws PulsarClientException {
         Consumer consumer = client.newConsumer()
                 .topic("my-topic")
                 .subscriptionName("my-subscription")
                 .subscribe();
 
         while (true) {
-            // Wait for a message
             Message msg = consumer.receive();
             try {
                 // Do something with the message
                 System.out.printf("Message received: %s, key:%s \n", new String(msg.getData()), msg.getKey());
                 // Acknowledge the message so that it can be deleted by the message broker
                 consumer.acknowledge(msg);
+                Thread.sleep(1000);
             } catch (Exception e) {
                 // Message failed to process, redeliver later
                 consumer.negativeAcknowledge(msg);
@@ -43,4 +63,6 @@ public class ConsumerDemo {
 
 
 }
+
+
 
