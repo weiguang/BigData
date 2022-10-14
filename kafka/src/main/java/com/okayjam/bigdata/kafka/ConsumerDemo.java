@@ -21,7 +21,7 @@ public class ConsumerDemo {
 
     public static void main(String[] args) throws InterruptedException {
 
-        String topicName = "mykafka";
+        String topicName = "mykafka1";
         String groupId = "test-consumer-group1";
 
         Properties props = new Properties();

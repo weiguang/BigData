@@ -25,6 +25,8 @@ import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.MultipleParameterTool;
 import org.apache.flink.util.Preconditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Skeleton for a Flink Batch Job.
@@ -37,6 +39,7 @@ import org.apache.flink.util.Preconditions;
  * and run 'mvn clean package' on the command line.
  */
 public class BatchWordCountJob {
+	private static final Logger LOGGER = LoggerFactory.getLogger(BatchWordCountJob.class);
 
 	public static void main(String[] args) throws Exception {
 
@@ -81,6 +84,7 @@ public class BatchWordCountJob {
 			env.execute("WordCount Example");
 		} else {
 			System.out.println("Printing result to stdout. Use --output to specify output path.");
+			LOGGER.info("Printing result to stdout. Use --output to specify output path.");
 			counts.print();
 		}
 

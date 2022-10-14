@@ -63,7 +63,7 @@ public class FileUtilTest extends TestCase {
 
     @Test
     public void  testDownload () throws IOException {
-        fileUtil.download("/1.txt", ".");
+        fileUtil.download("/test/1.txt", ".");
     }
 
 
