@@ -23,8 +23,8 @@ import java.util.Properties;
  **/
 public class FlinkConsumer {
 	private static final Logger LOGGER = LoggerFactory.getLogger(FlinkConsumer.class);
-	static String sourceKafka = "9.135.90.195:9092";
-	static String SinkKafka = "9.135.90.195:9092";
+	static String sourceKafka = "9.135.90.x:9092";
+	static String SinkKafka = "9.135.90.x:9092";
 	public static void main(String[] args) throws Exception{
 		// 构建环境
 		StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -64,9 +64,8 @@ public class FlinkConsumer {
 		KafkaSink<String> sink = KafkaSink.<String>builder()
 				.setBootstrapServers(SinkKafka)
 				.setRecordSerializer(KafkaRecordSerializationSchema.builder()
-						.setTopic("mykafka1")
-						.setValueSerializationSchema(new SimpleStringSchema())
-						.build()
+					.setTopic("mykafka1")
+					.setValueSerializationSchema(new SimpleStringSchema()).build()
 				)
 				.build();
 
@@ -79,7 +78,7 @@ public class FlinkConsumer {
 				System.out.println(s);
 				collector.collect("new" + s);
 			}
-		}).sinkTo(sink);
+		}).sinkTo(sink).name("jamSink");
 
 
 		env.execute("consumer start");

@@ -57,7 +57,11 @@
       <version>${elasticsearch.version}</version>
     </dependency>
 
-
+    <dependency>
+      <groupId>org.elasticsearch.plugin</groupId>
+      <artifactId>transport-netty4-client</artifactId>
+      <version>${elasticsearch.version}</version>
+    </dependency>
 
 
     <!-- elasticsearch end -->

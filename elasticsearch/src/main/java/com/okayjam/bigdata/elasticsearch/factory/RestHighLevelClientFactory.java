@@ -76,10 +76,10 @@ public class RestHighLevelClientFactory {
         System.out.println("REST_HTTP_URL: " + REST_HTTP_URL);
         logger.info("Elasticsearch Java High Level REST Client init start!");
         //6.x 以上
-//        restHighLevelClient = new RestHighLevelClient(builder);
+        restHighLevelClient = new RestHighLevelClient(builder);
         //5.x
-        restClient = builder.build();
-        restHighLevelClient = new RestHighLevelClient(restClient);
+//        restClient = builder.build();
+//        restHighLevelClient = new RestHighLevelClient(restClient);
 
         logger.info("Elasticsearch Java High Level REST Client init Successfully!");
     }

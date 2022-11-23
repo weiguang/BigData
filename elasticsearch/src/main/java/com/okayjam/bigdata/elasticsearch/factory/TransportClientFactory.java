@@ -4,7 +4,6 @@ import com.okayjam.bigdata.util.PropertiesConfig;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 //import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.slf4j.Logger;
@@ -52,7 +51,7 @@ public class TransportClientFactory {
 //                transportClient.addTransportAddress(new TransportAddress(InetAddress.getByName(host), Integer.parseInt(port)) );
                 //5.x
                 transportClient.addTransportAddress(
-                        new InetSocketTransportAddress(InetAddress.getByName(host), Integer.parseInt(port)) );
+                        new TransportAddress(InetAddress.getByName(host), Integer.parseInt(port)) );
                 httpHostList.add(hostAndPortArray[i]);
             }
             logger.info("Elasticsearch Java Transport Client init Successfully: {}", HTTP_URL);
