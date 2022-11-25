@@ -18,6 +18,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <encoding>UTF-8</encoding>
     <scala.version>2.11.12</scala.version>
+    <scala.main.version>2.11</scala.main.version>
     <spark.version>2.4.8</spark.version>
   </properties>
 
@@ -39,25 +40,43 @@
 <!--  </pluginRepositories>-->
 
   <dependencies>
-
-    <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-core_2.11</artifactId>
-      <version>${spark.version}</version>
-    </dependency>
-
-
+    <!--scala-->
     <dependency>
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-library</artifactId>
       <version>${scala.version}</version>
     </dependency>
 
+    <!--spark core-->
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_${scala.main.version}</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+
+    <!--hadoop -->
     <dependency>
       <groupId>org.apache.hadoop</groupId>
       <artifactId>hadoop-common</artifactId>
       <version>2.10.2</version>
     </dependency>
+
+    <!--spark-streaming-->
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-streaming_${scala.main.version}</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+
+    <!--spark-streaming-kafka-plugin-->
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-streaming-kafka-0-10_${scala.main.version}</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+
+
+
 
     <!-- Test -->
     <dependency>
