@@ -9,3 +9,15 @@ https://objects.githubusercontent.com/github-production-release-asset-2e65be/424
 
 
 查看运行情况：http://localhost:4040
+
+ http://9.135.90.x:8080/
+
+## 打包运行
+maven 打包
+
+上传文件到docker
+
+```docker cp spark-1.0-SNAPSHOT.jar  aeedee98bdd9:/root/``` 
+
+提交任务
+`````/usr/local/spark-2.2.1/bin/spark-submit --name JamWordCountScala --class com.okayjam.bigdata.spark.stream.KafkaWordCount --master spark://master:7077 --executor-memory 1G --total-executor-cores 1 /home/spark-1.0-SNAPSHOT.jar ```

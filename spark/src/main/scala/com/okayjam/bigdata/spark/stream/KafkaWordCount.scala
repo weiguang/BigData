@@ -16,9 +16,13 @@ import org.apache.spark.streaming.kafka010.KafkaUtils
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
+import org.apache.spark.internal.Logging
 
-object KafkaWordCount{
+
+object KafkaWordCount {
   def main(args:Array[String]){
+    // 可以设置hdfs用户，避免权限问题
+//    System.setProperty("HADOOP_USER_NAME", "spark")
     val sparkConf = new SparkConf().setAppName("KafkaWordCount").setMaster("local[2]")
     val sc = new SparkContext(sparkConf)
     sc.setLogLevel("WARN")
@@ -47,7 +51,8 @@ object KafkaWordCount{
       val pair = words.map(x => (x,1))
       val wordCounts = pair.reduceByKey(_+_)
       wordCounts.foreach(println)
-//      wordCounts.collect().foreach(println)
+//      wordCounts.foreach(logger.info)
+
     })
     ssc.start
     ssc.awaitTermination
