@@ -23,9 +23,11 @@ object KafkaWordCount {
   def main(args:Array[String]){
     // 可以设置hdfs用户，避免权限问题
 //    System.setProperty("HADOOP_USER_NAME", "spark")
+    // 设置 2 cores
     val sparkConf = new SparkConf().setAppName("KafkaWordCount").setMaster("local[2]")
     val sc = new SparkContext(sparkConf)
     sc.setLogLevel("WARN")
+    //批次间隔设为10秒
     val ssc = new StreamingContext(sc,Seconds(10))
     //设置检查点，如果存放在HDFS上面，则写成类似ssc.checkpoint("/user/hadoop/checkpoint")这种形式，但是，要启动Hadoop
     ssc.checkpoint("./spark/kafka/checkpoint")

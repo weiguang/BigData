@@ -23,16 +23,18 @@ object WordCount {
     val data:RDD[String] = sparkContext.textFile("spark/src/main/resources/words.txt")
     //4、 切分每一行，获取所有单词
     val words:RDD[String] = data.flatMap(x=>x.split(" "))
+
     //5、每个单词计为1
     val wordCountOne:RDD[(String,Int)] = words.map(x=>(x,1))
-
     //6、相同单词出现的1累加
     val result:RDD[(String,Int)] = wordCountOne.reduceByKey((x,y)=>x+y)
+//    result.map(x=>{x._1 + "," + x._2}).repartition(1).saveAsTextFile("./spark/temp/")
     //按照单词出现的次数降序排列  第二个参数默认是true表示升序，设置为false表示降序
     val sortedResult:RDD[(String,Int)] = result.sortBy(x=>x._2,false)
     //7、收集数据打印
     val finalResult:Array[(String,Int)] = sortedResult.collect()
     finalResult.foreach(println)
+
     //8、关闭sc
     sparkContext.stop()
   }
