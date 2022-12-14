@@ -1,6 +1,0 @@
-abc zoo
-hadoop jam home
-haha tst
-hadoop ttt
-phone
-456

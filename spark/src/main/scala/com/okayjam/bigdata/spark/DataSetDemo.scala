@@ -6,9 +6,7 @@ package com.okayjam.bigdata.spark
  * @author Chen weiguang chen2621978@gmail.com 
  * @date 2022/12/14 11:08
  * */
-import org.apache.spark.sql.{SQLContext, SparkSession}
-import org.apache.spark.rdd.RDD
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.{SaveMode, SparkSession}
 
 object DataSetDemo {
   def main(args: Array[String]): Unit = {
@@ -35,7 +33,11 @@ object DataSetDemo {
       sqlContext.sql("select word, count(*) as total from words group by word")
     wordCountsDataFrame.show()
 
+    // save result to file
+    wordCountsDataFrame.repartition(1).write.option("header","true").mode(SaveMode.Append).csv("./spark/temp/save")
+
     spark.stop()
   }
-
 }
+
+

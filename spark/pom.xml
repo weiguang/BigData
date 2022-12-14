@@ -17,9 +17,10 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <encoding>UTF-8</encoding>
-    <scala.version>2.11.12</scala.version>
-    <scala.main.version>2.11</scala.main.version>
+    <scala.version>2.12.17</scala.version>
+    <scala.main.version>2.12</scala.main.version>
     <spark.version>2.4.8</spark.version>
+    <scope.type>compile</scope.type>
   </properties>
 
 
@@ -41,31 +42,27 @@
 
   <dependencies>
     <!--scala-->
-    <dependency>
-      <groupId>org.scala-lang</groupId>
-      <artifactId>scala-library</artifactId>
-      <version>${scala.version}</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.scala-lang</groupId>-->
+<!--      <artifactId>scala-library</artifactId>-->
+<!--      <version>${scala.version}</version>-->
+<!--    </dependency>-->
 
     <!--spark core-->
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-core_${scala.main.version}</artifactId>
       <version>${spark.version}</version>
+      <scope>${scope.type}</scope>
     </dependency>
 
-    <!--hadoop -->
-    <dependency>
-      <groupId>org.apache.hadoop</groupId>
-      <artifactId>hadoop-common</artifactId>
-      <version>2.10.2</version>
-    </dependency>
 
     <!--spark-streaming-->
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-streaming_${scala.main.version}</artifactId>
       <version>${spark.version}</version>
+      <scope>${scope.type}</scope>
     </dependency>
 
     <!--spark-streaming-kafka-plugin-->
@@ -73,6 +70,14 @@
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-streaming-kafka-0-10_${scala.main.version}</artifactId>
       <version>${spark.version}</version>
+      <scope>${scope.type}</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-sql_${scala.main.version}</artifactId>
+      <version>${spark.version}</version>
+      <scope>${scope.type}</scope>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-sql -->
@@ -83,6 +88,13 @@
     </dependency>
 
 
+
+    <!--hadoop -->
+<!--    <dependency>-->
+<!--      <groupId>org.apache.hadoop</groupId>-->
+<!--      <artifactId>hadoop-common</artifactId>-->
+<!--      <version>2.10.2</version>-->
+<!--    </dependency>-->
 
 
     <!-- Test -->
@@ -168,18 +180,18 @@
 
   </build>
 
-  <repositories>
-    <repository>
-      <id>alimaven</id>
-      <name>aliyun maven</name>
-      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+<!--  <repositories>-->
+<!--    <repository>-->
+<!--      <id>alimaven</id>-->
+<!--      <name>aliyun maven</name>-->
+<!--      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>-->
+<!--      <releases>-->
+<!--        <enabled>true</enabled>-->
+<!--      </releases>-->
+<!--      <snapshots>-->
+<!--        <enabled>true</enabled>-->
+<!--      </snapshots>-->
+<!--    </repository>-->
+<!--  </repositories>-->
 
 </project>
