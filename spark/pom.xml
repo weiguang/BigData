@@ -73,18 +73,12 @@
       <scope>${scope.type}</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-sql_${scala.main.version}</artifactId>
-      <version>${spark.version}</version>
-      <scope>${scope.type}</scope>
-    </dependency>
-
     <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-sql -->
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-sql_${scala.main.version}</artifactId>
       <version>${spark.version}</version>
+      <scope>${scope.type}</scope>
     </dependency>
 
 
