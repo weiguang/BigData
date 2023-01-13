@@ -84,13 +84,11 @@
     </dependency>
 
 
-
-   <!-- redis-->
-    <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+<!--    Streams API-->
     <dependency>
-      <groupId>redis.clients</groupId>
-      <artifactId>jedis</artifactId>
-      <version>3.0.1</version>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-streams</artifactId>
+      <version>${kafka.version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
@@ -102,6 +100,25 @@
         </exclusion>
       </exclusions>
     </dependency>
+
+
+   <!-- redis-->
+    <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+<!--    <dependency>-->
+<!--      <groupId>redis.clients</groupId>-->
+<!--      <artifactId>jedis</artifactId>-->
+<!--      <version>3.0.1</version>-->
+<!--      <exclusions>-->
+<!--        <exclusion>-->
+<!--          <groupId>org.slf4j</groupId>-->
+<!--          <artifactId>slf4j-api</artifactId>-->
+<!--        </exclusion>-->
+<!--        <exclusion>-->
+<!--          <groupId>org.slf4j</groupId>-->
+<!--          <artifactId>slf4j-log4j12</artifactId>-->
+<!--        </exclusion>-->
+<!--      </exclusions>-->
+<!--    </dependency>-->
 
 
     <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->

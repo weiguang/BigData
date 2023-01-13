@@ -26,7 +26,7 @@ public class ConsumerDemo {
 
         Properties props = new Properties();
         //必须指定
-        props.put("bootstrap.servers", "9.135.90.195:9092");
+        props.put("bootstrap.servers", "localhost:9092");
         props.put("group.id", groupId);
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
