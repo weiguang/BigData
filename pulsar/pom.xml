@@ -16,6 +16,7 @@
     <properties>
 
         <pulsar.version>2.7.5</pulsar.version>
+        <rocketmq.client.version>5.2.0</rocketmq.client.version>
     </properties>
 
 <dependencies>
@@ -26,6 +27,13 @@
         <artifactId>pulsar-client</artifactId>
         <version>${pulsar.version}</version>
     </dependency>
+
+    <dependency>
+        <groupId>org.apache.rocketmq</groupId>
+        <artifactId>rocketmq-client</artifactId>
+        <version>${rocketmq.client.version}</version>
+    </dependency>
+
 
 
 </dependencies>
