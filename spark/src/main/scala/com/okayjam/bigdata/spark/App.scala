@@ -1,4 +1,4 @@
-package com.okayjam.bigdata
+package com.okayjam.bigdata.spark
 
 /**
  * @author ${user.name}
